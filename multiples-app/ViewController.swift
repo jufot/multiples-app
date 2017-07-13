@@ -9,15 +9,80 @@
 import UIKit
 
 class ViewController: UIViewController {
+    
+    
+    //Properties
+    var currentNumber = 0
+    var userNumber = 0
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+    //Outlets
+    @IBOutlet weak var logoImg: UIImageView!
+    @IBOutlet weak var whatMultipleAddedTxt: UITextField!
+    @IBOutlet weak var playbtn: UIButton!
+    
+    @IBOutlet weak var addBtn: UIButton!
+    @IBOutlet weak var addDirectionLbl: UILabel!
+    @IBOutlet weak var addLbl: UILabel!
+    
+    @IBAction func onAddTapped(sender: UIButton!) {
+        currentNumber = currentNumber + userNumber
+        
+        updateAddLbl()
+        
+        if isGameOver() {
+            restartGame()
+            
+        }
+        
+    }
+    
+    @IBAction func onPlayBtnPressed(sender: UIButton!) {
+        
+        
+        if whatMultipleAddedTxt.text != nil && whatMultipleAddedTxt.text != "" {
+            logoImg.hidden = true
+            playbtn.hidden = true
+            whatMultipleAddedTxt.hidden = false
+            
+            addBtn.hidden = false
+            addDirectionLbl.hidden = false
+            addLbl.hidden = false
+            
+            userNumber = Int(whatMultipleAddedTxt.text!)!
+            currentNumber = 0
+            updateAddLbl()
+            
+            
+        }
+        
+        
+        
+    }
+    
+    
+    func restartGame() {
+        logoImg.hidden = false
+        playbtn.hidden = false
+        whatMultipleAddedTxt.hidden = true
+        
+        addBtn.hidden = true
+        addDirectionLbl.hidden = true
+        addLbl.hidden = true
+        currentNumber = userNumber
+        
+    }
+    
+    func isGameOver() -> Bool {
+        if currentNumber >= userNumber*12 {
+            return true
+        } else {
+            return false
+        }
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    func updateAddLbl() {
+        addDirectionLbl.text = "\(currentNumber) + \(userNumber) = \(currentNumber+userNumber)"
     }
 
 
